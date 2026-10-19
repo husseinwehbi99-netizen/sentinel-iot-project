@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SENTINEL // Live Honeypot Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="mark">⬡</span><span><b>SENTINEL</b><small>LIVE DECEPTION LAB</small></span></div>
+    <p class="side-label">SECURITY WORKSPACE</p>
+    <a class="nav active" href="#overview">◫ &nbsp; Live overview</a>
+    <a class="nav" href="#events">≡ &nbsp; Event stream</a>
+    <div class="safe-note"><span class="dot"></span><b>DEFENSIVE LAB MODE</b><p>This dashboard receives sanitized event metadata. The decoy service should stay isolated and private.</p></div>
+    <div class="sidebar-foot">AP CSP SUMMATIVE<br><span>EDUCATIONAL PROJECT</span></div>
+  </aside>
+  <main id="overview">
+    <header><div class="crumb">Workspace <span>/</span> <b>Live overview</b></div><div class="connection"><i id="healthDot"></i><span id="healthText">CHECKING API…</span></div></header>
+    <section class="heading"><div><p class="eyebrow">SECURITY OPERATIONS / LIVE TELEMETRY</p><h1>Honeypot <em>observability</em></h1><p class="muted">Genuine events from your authorized lab, sanitized before display.</p></div><button id="refreshBtn">↻ &nbsp; Refresh now</button></section>
+    <section class="stats">
+      <article><small>EVENTS RECEIVED</small><strong id="eventCount">—</strong><p><i class="dot"></i> Events stored in this server session</p></article>
+      <article><small>HIGH RISK FLAGS</small><strong class="red" id="highCount">—</strong><p><i class="dot red-dot"></i> Simple rule-based classification</p></article>
+      <article><small>CONNECTION / SESSION EVENTS</small><strong class="blue" id="connectionCount">—</strong><p><i class="dot blue-dot"></i> Parsed from Cowrie event metadata</p></article>
+      <article><small>DATA SOURCE</small><strong class="source-value">COWRIE</strong><p><i class="dot"></i> Local lab → HTTPS bridge</p></article>
+    </section>
+    <section class="grid">
+      <article class="panel">
+        <div class="panel-title"><div><small>ACTIVITY</small><h2>Incoming event stream</h2></div><span class="live"><i></i> AUTO-REFRESH 5S</span></div>
+        <div class="stream" id="stream"><div class="placeholder">Waiting for lab events…<small>Generate a connection to your own local lab to populate this feed.</small></div></div>
+      </article>
+      <article class="panel side-panel">
+        <div class="panel-title"><div><small>INVESTIGATION</small><h2>Event details</h2></div><span class="hex">⌘</span></div>
+        <div id="details" class="details-empty"><div class="detail-symbol">⌕</div><b>Select an event</b><p>Choose an event from the stream to inspect its timestamp, source (masked), protocol, and classification.</p></div>
+        <div class="method"><b>How classification works</b><p>Transparent keyword rules label events as Info, Medium, or High. This is a learning aid, not a professional threat verdict.</p></div>
+      </article>
+    </section>
+    <section class="panel table-panel" id="events">
+      <div class="panel-title table-head"><div><small>TELEMETRY</small><h2>Recorded events <span id="recordCount">0 records</span></h2></div><input id="search" type="search" placeholder="Search event type or source…"></div>
+      <div class="table-scroll"><table><thead><tr><th>TIMESTAMP</th><th>EVENT</th><th>SOURCE</th><th>PROTOCOL</th><th>RISK</th></tr></thead><tbody id="tableBody"></tbody></table></div>
+      <div class="empty" id="empty">No events yet. Start the local lab bridge and make an authorized test connection.</div>
+      <div class="table-foot"><span>PUBLIC VIEW MASKS SOURCE IP ADDRESSES</span><span>LAST UPDATED <b id="lastUpdated">—</b></span></div>
+    </section>
+    <footer>SENTINEL LAB <span>•</span> SAFE, CONTROLLED CYBERSECURITY EDUCATION</footer>
+  </main>
+</div>
+<script src="/app.js"></script>
+</body></html>
