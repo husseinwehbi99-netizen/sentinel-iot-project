@@ -3,6 +3,7 @@ const tableBody = document.getElementById("tableBody");
 const search = document.getElementById("search");
 const selected = new Map();
 let allEvents = [];
+let totalEventCount = 0;
 let selectedId = null;
 
 function escapeHTML(value) {
@@ -15,10 +16,10 @@ function time(value) {
 function render() {
   const q = search.value.trim().toLowerCase();
   const shown = allEvents.filter(e => [e.eventType,e.source,e.protocol,e.message,e.risk].join(" ").toLowerCase().includes(q));
-  document.getElementById("eventCount").textContent = allEvents.length;
+  document.getElementById("eventCount").textContent = totalEventCount;
   document.getElementById("highCount").textContent = allEvents.filter(e => e.risk === "High").length;
   document.getElementById("connectionCount").textContent = allEvents.filter(e => /connect|session|login/i.test(e.eventType)).length;
-  document.getElementById("recordCount").textContent = `${allEvents.length} records`;
+  document.getElementById("recordCount").textContent = `${totalEventCount} records`;
   document.getElementById("lastUpdated").textContent = new Date().toLocaleTimeString();
   document.getElementById("empty").style.display = shown.length ? "none" : "block";
   tableBody.innerHTML = shown.map(e => `<tr data-id="${escapeHTML(e.id)}"><td>${escapeHTML(time(e.timestamp))}</td><td>${escapeHTML(e.eventType)}<br><small>${escapeHTML(e.message)}</small></td><td>${escapeHTML(e.source)}</td><td>${escapeHTML(e.protocol)}</td><td><span class="risk ${escapeHTML(e.risk)}">${escapeHTML(e.risk)}</span></td></tr>`).join("");
@@ -51,6 +52,7 @@ async function loadEvents() {
     if (!response.ok) throw new Error("API unavailable");
     const data = await response.json();
     allEvents = Array.isArray(data.events) ? data.events : [];
+    totalEventCount = Number(data.count) || allEvents.length;
     document.getElementById("healthText").textContent = "API CONNECTED";
     document.querySelector(".connection").classList.add("online");
     render();
